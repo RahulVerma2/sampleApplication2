@@ -1,0 +1,79 @@
+<div class="order-detail">
+  <header>
+    Order List.
+  </header>
+
+  <div>
+
+  </div>
+
+  <div class="order-list-section">
+    <div class="row header">
+      <div class="col-lg-2">
+        Order Id
+      </div>
+      <div class="col-lg-4">
+        User Detail
+      </div>
+      <div class="col-lg-3">
+        Vegetable List
+      </div>
+      
+      <div class="col-lg-1">
+          Order Date
+        </div>
+        <div class="col-lg-2">
+            Current Status
+          </div>
+
+
+    </div>
+    <div class="row" *ngFor="let order of orderList; let i = index">
+      <div class="col-lg-2">
+          {{order.orderId}}
+      </div>
+      <div class="col-lg-4">
+        <div class="row">
+          <div class="col-lg-6">
+            <div>{{order.name}}</div>
+            <div>{{order.phone}}</div>
+            <div>{{order.email}}</div>
+          </div>
+          <div class="col-lg-6">
+            <div>{{order.address[0].addressLine1}}</div>
+            <div>{{order.address[0].city}}, 
+                {{order.address[0].state}}, 
+                {{order.address[0].pincode}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div *ngFor="let item of order.itemList">
+          <span>{{item.itemName}}</span> - <span>{{item.itemQty}} {{item.itemUnit}}</span>
+        </div>
+      </div>
+      <div class="col-lg-1">
+        {{ order.orderDate | dateFormat}}
+      </div>
+      <div class="col-lg-2">
+        <label>{{order.currentStatus}}</label>
+        <br>
+        <b>Change Status</b>
+        <br>
+        <input type="radio" [(ngModel)]="order.currentStatus" value="Order Accepted">Accepted
+        <input type="radio" [(ngModel)]="order.currentStatus" value="Order Packed">Packed
+        <br>
+        <input type="radio" [(ngModel)]="order.currentStatus" value="Order Dispatched">Dispatched
+        <input type="radio" [(ngModel)]="order.currentStatus" value="Delivered">Delivered
+        <br>
+        <button (click)="updateOrderStatus(order)">
+          Update Status
+        </button>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>
